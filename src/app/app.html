@@ -1,13 +1,10 @@
 <header ng-controller="ControlPanel">
-  <label>Start</label>
-  <input type="text" ng-model="store.startPos" />
-  <label>Instructions</label>
-  <input type="text" ng-model="store.instructions" />
+  <textarea ng-model="store.commands"></textarea>
   <button type="submit" ng-click="submitHandler()">Submit</button>  
 </header>
 <main ng-controller="MarsSurface">
-
+  <div class="output">
+    <h3>Output</h3>
+    <div ng-repeat="value in store.output track by $index">{{value}}</div>
+  </div>
 </main>
-<footer>
-  <a ng-href="{{app.url}}">Webpack Angular Starter</a>
-</footer>

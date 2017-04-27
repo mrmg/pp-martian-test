@@ -1,14 +1,15 @@
 class ControlPanel {
-    constructor($scope) {
-        this.store = {
-            startPos: '',
-            instructions: ''
+    constructor($scope, MarsGrid) {
+        this.$scope = $scope;
+        $scope.store = {
+            commands: "53\n11E\nRFRFRFRF\n32N\nFRRFLLFFRRFLL\n03W\nLLFFFLFLFL\n"
         }
 
+        this.$scope.grid = MarsGrid;
         $scope.submitHandler = this.submitHandler;
     }
     submitHandler() {
-        console.log(this.store.startPos, this.store.instructions);
+        this.grid.runInstruction(this.store.commands);
     }
 }
 

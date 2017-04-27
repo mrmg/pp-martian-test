@@ -1,7 +1,13 @@
 class MarsSurface {
     constructor($scope, MarsGrid) {
-        MarsGrid.setSize(50, 50);
+        this.MarsGrid = MarsGrid;
+        this.$scope = $scope;
+
+        $scope.store = {
+            output: MarsGrid.output
+        }
     }
 }
+
 
 export { MarsSurface }
