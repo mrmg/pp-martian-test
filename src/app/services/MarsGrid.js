@@ -4,11 +4,14 @@ class MarsGrid {
     constructor() {
         this.output = [];
         this.grid = [[]];
+        this.currentRobot = undefined;
+        this.falls = [];
     }
 
     runInstruction(instruction) {
         this.commandCount = 0;
         this.output.length = 0;
+        this.falls.length = 0;
         let commands = instruction.split("\n");
         commands.map((command) => this.runCommand(command));
     }
@@ -32,19 +35,67 @@ class MarsGrid {
     }
 
     processStart(command) {
-        this.output.push('---START COMMAND---');
+        this.output.push('');
         this.output.push('START: ' + command);
+        let positions = command.split("");
+        // new start position so lets make a new robot
+        this.currentRobot = new Robot(positions[0], positions[1], positions[2]);
     }
 
     processMovement(command) {
-        this.output.push('END: ' + command);
+        let commands = command.split("");
+        try {
+            commands.map((instruction) => this.processInstruction(instruction));
+            this.output.push(this.currentRobot.position);
+        } catch(e) {
+            // robot lost
+            this.falls.push(this.currentRobot.position);
+            this.output.push(this.currentRobot.position + "LOST");
+        }
+    }
+
+    processInstruction(i) {
+        switch(i) {
+            case "R":
+            case "L":
+                this.currentRobot.rotate(i);
+                break;
+            case "F":
+                this.moveRobotForward();
+                break;
+            default:
+                throw new Error("Not a valid movement command");
+        }
+    }
+
+    moveRobotForward() {
+        let nextPos = [
+            this.currentRobot.pos[0] + this.currentRobot.direction[0],
+            this.currentRobot.pos[1] + this.currentRobot.direction[1]
+        ];
+        try {
+            if(nextPos[0] < 0 || nextPos[1] < 0 ||
+                nextPos[0] > this.width || nextPos[1] > this.height) {
+                throw new Error("Move out of bounds");
+            }
+            // move is ok
+            this.currentRobot.pos = nextPos;
+            console.log("move robot: " + this.currentRobot.pos);
+        } catch(e) {
+            // move out of bounds
+            // check if move previously tried
+            console.log(this.falls.indexOf(this.currentRobot.position));
+            if(this.falls.indexOf(this.currentRobot.position) < 0)
+                throw new Error("Move out of bounds");
+        }
     }
 
     setSize(command) {
-        this.width = command;
-        this.height = command;
+        let dimensions = command.split("");
+        this.width = dimensions[0];
+        this.height = dimensions[1];
         
-        this.output.push('Creating rrid of size: ' + command);
+        this.output.push('Creating grid of size: ' + this.width +" x " + this.height);
         
         this.grid = new Array(this.height);        
         for(var y = 0; y < this.height; y++) {
