@@ -1,4 +1,4 @@
-class MarsSurface {
+class OutputPanel {
     constructor($scope, MarsGrid) {
         this.MarsGrid = MarsGrid;
         this.$scope = $scope;
@@ -10,4 +10,4 @@ class MarsSurface {
 }
 
 
-export { MarsSurface }
+export { OutputPanel }

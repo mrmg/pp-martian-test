@@ -17,29 +17,38 @@ class MarsGrid {
         if(command) {
             if(this.commandCount === 0) {
                 // initial command is setting grid size
-                this.output.push('init');
-                this.setSize(command, command);
+                this.setSize(command);
             } else {
                 if(command.substr(0,1) < 10) {
                     // not first command if it starts with a number it's a start command
-                    this.output.push('---START COMMAND---');
-                    this.output.push('START: ' + command);
+                    this.processStart(command);
                 } else {
                     // otherwise it's an instruction set 
-                    this.output.push('END: ' + command);
+                    this.processMovement(command);
                 }
             }
             this.commandCount++;
         }
     }
 
-    setSize(width, height) {
-        this.width = width;
-        this.height = height;
+    processStart(command) {
+        this.output.push('---START COMMAND---');
+        this.output.push('START: ' + command);
+    }
+
+    processMovement(command) {
+        this.output.push('END: ' + command);
+    }
+
+    setSize(command) {
+        this.width = command;
+        this.height = command;
         
-        this.grid = new Array(height);        
-        for(var y = 0; y < height; y++) {
-            this.grid[y] = new Array(width);
+        this.output.push('Creating rrid of size: ' + command);
+        
+        this.grid = new Array(this.height);        
+        for(var y = 0; y < this.height; y++) {
+            this.grid[y] = new Array(this.width);
         }
     }
 

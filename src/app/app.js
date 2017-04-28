@@ -1,6 +1,6 @@
 import angular from 'angular';
 import { ControlPanel } from "./controllers/ControlPanel";
-import { MarsSurface } from "./controllers/MarsSurface";
+import { OutputPanel } from "./controllers/OutputPanel";
 import { MarsGrid } from "./services/MarsGrid";
 
 import '../style/app.css';
@@ -23,7 +23,7 @@ angular.module('app', [])
   .directive('app', app)
   .controller('AppCtrl', AppCtrl)
   .controller('ControlPanel', ControlPanel)
-  .controller('MarsSurface', MarsSurface)
+  .controller('OutputPanel', OutputPanel)
   .service('MarsGrid', MarsGrid)
 
 export default 'app';

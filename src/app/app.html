@@ -2,7 +2,7 @@
   <textarea ng-model="store.commands"></textarea>
   <button type="submit" ng-click="submitHandler()">Submit</button>  
 </header>
-<main ng-controller="MarsSurface">
+<main ng-controller="OutputPanel">
   <div class="output">
     <h3>Output</h3>
     <div ng-repeat="value in store.output track by $index">{{value}}</div>
