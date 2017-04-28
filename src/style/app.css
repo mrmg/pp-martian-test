@@ -1,7 +1,7 @@
 /* styles in src/style directory are applied to the whole page */
 body {
   color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Courier New, Courier, monospace;
 }
 main {
   text-align: center;
@@ -29,6 +29,7 @@ header {
 textarea {
   width: 90%;
   height: 70%;
+  font-family: Courier New, Courier, monospace;
   margin:20px auto;
   display: block;
 }
@@ -43,4 +44,5 @@ button {
   background: #fff;
   color: #000;
   padding: 10px;
+  text-align: left;
 }

@@ -35,7 +35,7 @@ class MarsGrid {
     }
 
     processStart(command) {
-        this.output.push('');
+        this.output.push('-');
         this.output.push('START: ' + command);
         let positions = command.split("");
         // new start position so lets make a new robot
@@ -46,11 +46,11 @@ class MarsGrid {
         let commands = command.split("");
         try {
             commands.map((instruction) => this.processInstruction(instruction));
-            this.output.push(this.currentRobot.position);
+            this.output.push('END: ' + this.currentRobot.position);
         } catch(e) {
             // robot lost
             this.falls.push(this.currentRobot.position);
-            this.output.push(this.currentRobot.position + "LOST");
+            this.output.push('END: ' + this.currentRobot.position + "LOST");
         }
     }
 
@@ -80,11 +80,9 @@ class MarsGrid {
             }
             // move is ok
             this.currentRobot.pos = nextPos;
-            console.log("move robot: " + this.currentRobot.pos);
         } catch(e) {
             // move out of bounds
             // check if move previously tried
-            console.log(this.falls.indexOf(this.currentRobot.position));
             if(this.falls.indexOf(this.currentRobot.position) < 0)
                 throw new Error("Move out of bounds");
         }
